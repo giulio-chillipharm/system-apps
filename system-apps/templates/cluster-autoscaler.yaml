@@ -1,0 +1,35 @@
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: cluster-autoscaler
+#   annotations:
+#     argocd.argoproj.io/sync-wave: '-5'
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: systems
+#   sources:
+#   - repoURL: https://kubernetes.github.io/autoscaler
+#     chart: cluster-autoscaler
+#     targetRevision: 9.35.0
+#     helm:
+#       valueFiles:
+#       - "$values/clusters/giuliodev-a/eu-west-1/values/systems/cluster-autoscaler/values.yaml"
+#   - repoURL: git@github.com:Chillibean/argocd-applications.git
+#     targetRevision: improvement/TEC-141-improve-resource-usage
+#     ref: values
+#   - repoURL: git@github.com:Chillibean/argocd-applications.git
+#     targetRevision: improvement/TEC-141-improve-resource-usage
+#     path: clusters/giuliodev-a/eu-west-1/values/systems/cluster-autoscaler
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: kube-system
+#   syncPolicy:
+#     automated:
+#       selfHeal: true
+#     syncOptions:
+#     - ApplyOutOfSyncOnly=true
+#     - CreateNamespace=true
+#     - preserveResourcesOnDeletion=false
+#   revisionHistoryLimit: 1
