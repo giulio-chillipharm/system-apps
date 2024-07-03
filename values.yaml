@@ -1,0 +1,4 @@
+chillipharm:
+  appName: system-apps
+  chartName: system-apps
+  chartVersion: 0.1.0
